@@ -7,7 +7,6 @@ module.exports = {
         let list = '<ul>\n'
         for (let file of filelist) {
             let filename = file.substring(0, file.length-4);
-            // list += `<li><a href="/?id=${filename}">${filename}</a></li>\n`;
             list += `<li><a href="/id/${filename}">${filename}</a></li>\n`;
         }
         list += '</ul>\n';
@@ -41,7 +40,7 @@ module.exports = {
                     <td><textarea name="description" cols="40" rows="5"></textarea></td>
                 </tr>
                 <tr>
-                    <td><lable for="file">File Name : </lable></td>
+                    <td><lable for="file">사진 </lable></td>
                     <td><input type="file" name="image" id="file"></td>       
                 </tr>
                 <tr>
@@ -63,7 +62,7 @@ module.exports = {
     },
     updateForm: function (subject, description) {
         return `
-        <form action="/update" method="POST">
+        <form action="/update" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="original" value="${subject}">
             <table>
                 <tr>
@@ -73,6 +72,10 @@ module.exports = {
                 <tr>
                     <td><label>내용</label></td>
                     <td><textarea name=description cols="40" rows="5">${description}</textarea></td>
+                </tr>
+                <tr>
+                    <td><lable for="file">사진 </lable></td>
+                    <td><input type="file" name="image" id="file"></td>       
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align:center;"><input type="submit" value="수정"></td>
