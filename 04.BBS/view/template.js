@@ -24,12 +24,11 @@ module.exports = {
             <a class="nav-link" href="#"><i class="fas fa-home"></i>홈</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/logout">로그아웃</a>
+            <a class="nav-link" href="/login">로그아웃</a>
         </li>
     </ul>
-    <div class="navbar-text fixed-right" id="weather">
+    <div class="navbar-text fixed-right" id="welcome">
         홍길동님 반갑습니다.&nbsp;&nbsp;&nbsp;&nbsp;
-        <i class="fas fa-cloud-sun"></i> 20&deg;C
     </div>
     </nav>
         `;

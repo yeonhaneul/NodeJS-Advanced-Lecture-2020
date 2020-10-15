@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const uRouter = require('./userRouter');
+const bRouter = require('./bbsRouter');
+const dm = require('./db/db-module')
 const ut = require('./util');
 
 const app = express();
@@ -25,21 +27,45 @@ app.use('/user', uRouter);  //유저로 시작하는것은 uRouter로 보낸다.
 app.use('/bbs', bRouter);
 
 app.get('/', (req,res) => {
+    res.redirect('/bbs/listMain')
+    });
+
+app.get('/login', (req,res) => {
     fs.readFile('./view/index.html', 'utf8', (error, data) => {
         res.send(data);
     })
 });
 
 app.get('/login/:uid', (req,res) => {
-    fs.readFile('./view/test', 'utf8', (error, data) => {
+    fs.readFile('./view/bbsList', 'utf8', (error, data) => {
         res.send(data);
     })
 });
 
 app.post('/login', (req,res) => {
-    fs.readFile('./view/test', 'utf8', (error, data) => {
-        res.send(data);
-    })
+    let uid = req.body.uid;
+    let pwd = req.body.pwd;
+    let pwdHash = ut.generateHash(pwd);
+    dm.getUserInfo(uid, result => {
+        if (result === undefined) {
+            let html = am.alertMsg(`Login 실패: uid ${uid}이/가 없습니다.`, '/login')
+            console.log(`Login 실패: uid ${uid}이/가 없습니다.`)
+            res.send(html);
+        } else {
+            if (result.pwd === pwdHash) {
+                req.session.uid = uid;
+                req.session.uname = result.uname;
+                console.log('Login 성공');
+                req.session.save(function() {
+                    res.redirect('/');
+                });
+            } else {
+                let html = am.alertMsg(`Login 실패: 패스워드를 확인해주세요.`, '/login')
+                res.send(html);
+                console.log('Login 실패: 패스워드가 다릅니다.');
+            }
+        }
+    });
 });
 
 
