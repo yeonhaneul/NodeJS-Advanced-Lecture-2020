@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
 	<title>Bootstrap Example</title>
@@ -15,23 +15,23 @@
 
 	<div class="container" style="margin-top: 90px">
 		<div class="row">
+			<div class="col-10">
+				<h3 style="margin-top: 20px;"><strong>글 작성</strong></h3>
+				<hr>
+			</div>
 			<div class="col-1"></div>
 			<div class="col-10">
-				<form action="/" method="post">
-					<table class="table">
-						<th style="width: 100px;text-align: center;">
-							<label for="bid">번호</label></th>
-						<th style="width: 300px;text-align: center;">
-							<label for="title">제목</label></th>
-						<th style="width: 100px;text-align: center;">
-							<label for="uname">글쓴이</label></th>
-						<th style="width: 100px;text-align: center;">
-							<label for="regDate">날짜</label></th>
-						<th style="width: 100px;text-align: center;">
-							<label for="viewCount">조회수</label></th>
-					</table>
-					<button type="submit" class="btn btn-primary float-right" value="글쓰기"
-						onclick="location.href='/bbs/create'">글쓰기</button>
+				<form action="/bbs/create" method="post">
+					<input type="text" name="bdTitle" class="form-control" style="margin-bottom: 10px;"
+						placeholder="제목을 입력해주세요." required>
+					<div class="form-group">
+						<textarea class="form-control" rows="10" name="bdContent"
+							placeholder="내용을 입력해주세요" required></textarea>
+					</div>
+					<div style="text-align: center;margin-top: 10px;">
+						<button type="submit" class="btn btn-success" value="확인">확인</button>	
+						<button type="submit" class="btn btn-secondary" value="취소" onclick="location.href='/'">취소</button>
+					</div>
 				</form>
 			</div>
 			<div class="col-1"></div>

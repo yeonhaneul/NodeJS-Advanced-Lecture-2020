@@ -19,7 +19,58 @@ function getConnection() {
     return conn;
 }
 
-let sql = `SELECT bid, uid, title, content,
+
+let date = new Date();
+let year = date.getFullYear();
+let month = date.getMonth() +1;
+    month = month>=10? month:'0'+month;
+let day = date.getDate();
+    day = day>=10? day:'0'+day;
+let hour = date.getHours();
+    hour = hour>=10? hour:'0'+hour;
+let min = date.getMinutes();
+    min = min>=10? min:'0'+min;
+let sec = date.getSeconds();
+    sec = sec>=10? sec:'0'+sec;
+let now = year+'-'+month+'-'+day+' '+hour+':'+min+":"+sec;
+console.log(now);
+
+/* let sql = `SELECT b.bid, u.uid, b.title, b.content, u.uname, 
+DATE_FORMAT(b.modTime, '%Y-%m-%d %T') as modTime,
+b.viewCount, b.replyCount
+FROM bbs AS b
+JOIN users AS u
+on b.uid=u.uid
+WHERE b.isDeleted=0
+ORDER BY b.bid DESC
+LIMIT 10 offset ?;`;
+let conn = getConnection();
+conn.query(sql, function(error, fields) {
+if (error)
+    console.log(error);
+});
+conn.end(); */
+
+
+/* let sql = `create table if not exists reply (
+    rid int not null primary key auto_increment,
+    bid int not null,
+    uid varchar(20) not null,
+    content varchar(100),
+    regTime datetime default current_timestamp,
+    isMine int default 0,
+    foreign key(bid) references bbs(bid),
+    foreign key(uid) references users(uid)
+);`;
+let conn = getConnection();
+conn.query(sql, function(error, fields) {
+if (error)
+    console.log(error);
+});
+conn.end(); */
+
+
+/* let sql = `SELECT bid, uid, title, content,
 DATE_FORMAT(modTime, '%Y-%m-%d') AS sDate,
 DATE_FORMAT(modTime, '%T') AS sTime,
 users.uname, viewCount, bbs.isDeleted, replyCount FROM bbs
@@ -31,7 +82,7 @@ conn.query(sql, function(error, fields) {
 if (error)
     console.log(error);
 });
-conn.end();
+conn.end(); */
 
 /* let sql = `SELECT bid, uid, title, content, DATE_FORMAT(modTime, '%Y-%m-%d %T') AS regDate, viewCount, isDeleted, replyCount
 FROM bbs WHERE isDeleted=0

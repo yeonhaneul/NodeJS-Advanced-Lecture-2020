@@ -8,6 +8,7 @@ const uRouter = require('./userRouter');
 const bRouter = require('./bbsRouter');
 const dm = require('./db/db-module')
 const ut = require('./util');
+const am = require('./view/alertMsg');
 
 const app = express();
 //express.static으로 정의해주어야지 remote가 아닌 local의 파일을 사용 할 수 있다.
@@ -27,17 +28,11 @@ app.use('/user', uRouter);  //유저로 시작하는것은 uRouter로 보낸다.
 app.use('/bbs', bRouter);
 
 app.get('/', (req,res) => {
-    res.redirect('/bbs/listMain')
-    });
+    res.redirect('/bbs/list/1');
+});
 
 app.get('/login', (req,res) => {
     fs.readFile('./view/index.html', 'utf8', (error, data) => {
-        res.send(data);
-    })
-});
-
-app.get('/login/:uid', (req,res) => {
-    fs.readFile('./view/bbsList', 'utf8', (error, data) => {
         res.send(data);
     })
 });
@@ -48,7 +43,7 @@ app.post('/login', (req,res) => {
     let pwdHash = ut.generateHash(pwd);
     dm.getUserInfo(uid, result => {
         if (result === undefined) {
-            let html = am.alertMsg(`Login 실패: uid ${uid}이/가 없습니다.`, '/login')
+            let html = am.alertMsg(`Login 실패: ${uid}은/는 등록되지 않은 아이디입니다.`, '/login')
             console.log(`Login 실패: uid ${uid}이/가 없습니다.`)
             res.send(html);
         } else {
@@ -57,7 +52,7 @@ app.post('/login', (req,res) => {
                 req.session.uname = result.uname;
                 console.log('Login 성공');
                 req.session.save(function() {
-                    res.redirect('/');
+                    res.redirect('/bbs/list/1');
                 });
             } else {
                 let html = am.alertMsg(`Login 실패: 패스워드를 확인해주세요.`, '/login')
@@ -68,6 +63,10 @@ app.post('/login', (req,res) => {
     });
 });
 
+/* app.get('/logout', (req,res) => {
+    req.session.destroy();
+    res.redirect('/login');
+}) */
 
 app.listen(3000, function () {
     console.log('Server running at http://127.0.0.1:3000');

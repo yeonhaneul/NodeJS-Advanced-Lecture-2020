@@ -19,28 +19,27 @@ module.exports = {
         });
         return conn;
     },
-    getAllLists: function(callBack) {
+    bbsTotalCount: function(callback) {
         let conn = this.getConnection();
-        let sql = `SELECT * FROM bbs
-        JOIN users
-        ON bbs.uid=users.uid
-        ORDER BY bid DESC;`;
-        conn.query(sql, (error, rows, fields) => {
+        let sql = `SELECT count(*) as count FROM bbs where isDeleted=0;`;
+        conn.query(sql, (error, results, fields) => {
             if (error)
-            console.log(error);
-            callBack(rows);
+                console.log(error);
+            callback(results[0]);
         });
-        conn.end()
+        conn.end();
     },
-    getJoinLists: function(callBack) {
+    getJoinLists: function(offset, callBack) {
         let conn = this.getConnection();
-        let sql = `SELECT bid, uid, title, content, uname, 
-            DATE_FORMAT(modTime, '%Y-%m-%d %T') AS modTime,
-            viewCount, bbs.isDeleted, replyCount FROM bbs
-            left JOIN users
-            using(uid)
-            ORDER BY bid DESC;`;
-        conn.query(sql, (error, rows, fields) => {
+        let sql = `SELECT b.bid, b.uid, u.uname, b.title, b.content, 
+                DATE_FORMAT(b.modTime, '%Y-%m-%d %T') as modTime, b.viewCount, b.replyCount
+                FROM bbs AS b
+                JOIN users AS u
+                ON b.uid=u.uid
+                WHERE b.isDeleted=0
+                ORDER BY b.bid DESC 
+                LIMIT 10 offset ?;`;
+        conn.query(sql, offset, (error, rows, fields) => {
             if (error)
             console.log(error);
             callBack(rows);
@@ -57,7 +56,7 @@ module.exports = {
         });
         conn.end();
     },
-    createBbs: function(req, res) {
+    createBbs: function(params, callback) {
         let conn = this.getConnection();
         let sql = `insert into users(title, content) values(?,?)`;
         conn.query(sql, params, function (error, fields) {
