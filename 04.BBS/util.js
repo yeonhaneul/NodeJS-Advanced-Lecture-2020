@@ -13,6 +13,13 @@ module.exports = {
             next();
         }
     },
+    isLoggedIn: function(req, res, next) {
+        if (!req.session.uid) {  //로그인 된 상태인지 확인
+            res.redirect('/login')
+        } else {
+            next();
+        }
+    },
     getNow: function (date) {
         let year = date.getFullYear();
         let month = date.getMonth() +1;
@@ -26,5 +33,5 @@ module.exports = {
         let sec = date.getSeconds();
             sec = sec>=10? sec:'0'+sec;
         return year+'-'+month+'-'+day+' '+hour+':'+min+":"+sec;
-        }
     }
+}

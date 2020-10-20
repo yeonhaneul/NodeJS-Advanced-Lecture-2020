@@ -2,6 +2,7 @@ const express = require('express');
 const ut = require('./util');
 const dm = require('./db/db-module');
 const am = require('./view/alertMsg');
+const tm = require('./view/template');
 
 const uRouter = express.Router();
 uRouter.get('/register', (req, res) => {
@@ -28,4 +29,19 @@ uRouter.post('/register', (req, res) => {
         res.send(html);
     }
 });
+
+uRouter.get('/list/:page', ut.isLoggedIn, (req, res) => {
+    let page = parseInt(req.params.page);
+    let offset = (page - 1) *10;
+    dm.userTotalCount(result => {
+        let totalPage = Math.ceil(result.count/10);
+    dm.getUserInfo(offset, rows => {
+        let view = require('./view/userList');
+        let navBar = tm.navBar(req.session.uname?req.session.uname:'게스트');
+        let html = view.list(navBar, rows, page, totalPage);
+        res.send(html);
+        });
+    });
+});
+
 module.exports = uRouter;

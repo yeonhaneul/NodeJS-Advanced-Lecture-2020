@@ -44,7 +44,7 @@ app.post('/login', (req,res) => {
     dm.getUserInfo(uid, result => {
         if (result === undefined) {
             let html = am.alertMsg(`Login 실패: ${uid}은/는 등록되지 않은 아이디입니다.`, '/login')
-            console.log(`Login 실패: uid ${uid}이/가 없습니다.`)
+            console.log(`Login 실패: ${uid}이/가 존재하지 않습니다.`)
             res.send(html);
         } else {
             if (result.pwd === pwdHash) {
@@ -52,7 +52,7 @@ app.post('/login', (req,res) => {
                 req.session.uname = result.uname;
                 console.log('Login 성공');
                 req.session.save(function() {
-                    res.redirect('/bbs/list/1');
+                    res.redirect('/');
                 });
             } else {
                 let html = am.alertMsg(`Login 실패: 패스워드를 확인해주세요.`, '/login')
@@ -63,10 +63,10 @@ app.post('/login', (req,res) => {
     });
 });
 
-/* app.get('/logout', (req,res) => {
+app.get('/logout', (req,res) => {
     req.session.destroy();
     res.redirect('/login');
-}) */
+})
 
 app.listen(3000, function () {
     console.log('Server running at http://127.0.0.1:3000');

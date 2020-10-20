@@ -19,21 +19,74 @@ function getConnection() {
     return conn;
 }
 
+let sql = `SELECT b.bid, b.uid, u.uname, b.title, b.content, 
+            DATE_FORMAT(b.modTime, '%Y-%m-%d %T') as modTime, b.viewCount, b.replyCount
+            FROM bbs AS b
+            JOIN users AS u
+            ON b.uid=u.uid
+            WHERE b.isDeleted=0 AND b.title='
+            ORDER BY b.bid DESC`
+let conn = getConnection();
+conn.query(sql, function(error, fields) {
+if (error)
+    console.log(error);
+});
+conn.end();
 
-let date = new Date();
+
+/* let sql = `SELECT r.rid, r.bid, u.uid, r.content,
+DATE_FORMAT(r.regTime, '%Y-%m-%d %T') as regTime, r.isMine
+FROM reply AS r
+JOIN users AS u
+ON r.uid=u.uid
+WHERE r.bid=1017
+ORDER BY r.rid DESC;`
+let conn = getConnection();
+conn.query(sql, function(error, fields) {
+if (error)
+    console.log(error);
+});
+conn.end(); */
+
+/* 
+let sql = `SELECT b.bid, b.uid, u.uname, b.title, b.content, 
+DATE_FORMAT(b.modTime, '%Y-%m-%d %T') as modTime, b.viewCount, b.replyCount
+FROM bbs AS b
+JOIN users AS u
+ON b.uid=u.uid
+WHERE b.isDeleted=0 AND b.title=?
+ORDER BY b.bid DESC;`
+let conn = getConnection();
+conn.query(sql, function(error, fields) {
+if (error)
+    console.log(error);
+});
+conn.end(); */
+
+/* let sql = `UPDATE bbs SET viewCount = viewCount+1
+WHERE bid=?`;
+let conn = getConnection();
+conn.query(sql, function(error, fields) {
+if (error)
+    console.log(error);
+});
+conn.end(); */
+
+
+/* let date = new Date();
 let year = date.getFullYear();
 let month = date.getMonth() +1;
-    month = month>=10? month:'0'+month;
+month = month>=10? month:'0'+month;
 let day = date.getDate();
-    day = day>=10? day:'0'+day;
+day = day>=10? day:'0'+day;
 let hour = date.getHours();
-    hour = hour>=10? hour:'0'+hour;
+hour = hour>=10? hour:'0'+hour;
 let min = date.getMinutes();
-    min = min>=10? min:'0'+min;
+min = min>=10? min:'0'+min;
 let sec = date.getSeconds();
-    sec = sec>=10? sec:'0'+sec;
+sec = sec>=10? sec:'0'+sec;
 let now = year+'-'+month+'-'+day+' '+hour+':'+min+":"+sec;
-console.log(now);
+console.log(now); */
 
 /* let sql = `SELECT b.bid, u.uid, b.title, b.content, u.uname, 
 DATE_FORMAT(b.modTime, '%Y-%m-%d %T') as modTime,

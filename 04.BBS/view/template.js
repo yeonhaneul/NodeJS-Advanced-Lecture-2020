@@ -29,16 +29,20 @@ module.exports = {
                 <a class="nav-link" href="/"><i class="fas fa-home"></i>홈</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/login">로그아웃</a>
+                <a class="nav-link" href="/bbs/create"><i class="fas fa-pencil-alt"></i>글쓰기</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/list/1"><i class="far fa-user"></i></i></a>
             </li>
             <li class="navbar-text" id="welcome">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uname}님 반갑습니다.
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uname?uname:'게스트'}님 반갑습니다.
             </li>
         </ul>
-        <form class="form-inline" action="/action_page.php">
-            <input class="form-control mr-sm-2" type="text" placeholder="검색어를 입력해주세요">
-            <button class="btn btn-success" type="submit">확인</button>
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="text" name="search">
+            <button class="btn btn-success" type="submit">검색</button>
         </form>
+        <a class="nav-link" href="/logout">로그아웃</a>
         </nav>
         `;
     },

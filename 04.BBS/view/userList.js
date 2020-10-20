@@ -1,21 +1,16 @@
 const tm = require("./template");
-const ut = require('../util');
 
 module.exports.list = function (navBar, rows, pageNo, totalPage) {
-    let tableRow = '';
+    let userR = '';
     for (let row of rows) {
-        let today = new Date();
-        let now  = ut.getNow(today);
-        let modT = row.modTime;
-        console.log(modT);
-        let eMod = (now.substring(0,10) === modT.substring(0,10) ? modT.substring(11):modT.substring(0,10));
-        tableRow += `<tr>
-                        <td style="text-align: center;">${row.bid}</td>
-                        <td><a href="/bbs/view/${row.bid}">${row.title}</a></td>
-                        <td style="text-align: center;">${row.uname}</td>
-                        <td style="text-align: center;">${eMod}</td>
-                        <td style="text-align: center;">${row.viewCount}</td>
-                    </tr>`;
+        userR += `<tr>
+                    <td style="text-align: center;">${row.uid}</td>
+                    <td style="text-align: center;">${row.uname}</td>
+                    <td style="text-align: center;">${row.tel}</td>
+                    <td style="text-align: center;">${row.email}</td>
+                    <td style="text-align: center;">${row.regDate}</td>
+                    <td style="text-align: center;">${row.isDeleted}</td>
+                </tr>`;
     };
     // 페이지 지원
     let pages = `<li class="page-item disabled">
@@ -30,7 +25,7 @@ module.exports.list = function (navBar, rows, pageNo, totalPage) {
                         </span>
                     </li>`;
         else
-            pages += `<li class="page-item"><a class="page-link" href="/bbs/list/${page}">${page}</a></li>`;
+            pages += `<li class="page-item"><a class="page-link" href="/user/list/${page}">${page}</a></li>`;
     }
     pages += `<li class="page-item">
                 <a class="page-link" href="#" aria-label="Next">
@@ -46,22 +41,23 @@ module.exports.list = function (navBar, rows, pageNo, totalPage) {
 					<table class="table table-hover">
                         <tr>
                         <th style="width: 100px;text-justify: auto;text-align: center;">
-                            <label for="bid">번호</label></th>
+                            <label for="uid">아이디</label></th>
                         <th style="width: 300px;text-justify: auto;text-align: center;">
-                            <label for="title">제목</label></th>
+                            <label for="uname">이름</label></th>
                         <th style="width: 100px;text-justify: auto;text-align: center;">
-                            <label for="uname">글쓴이</label></th>
+                            <label for="tel">전화번호</label></th>
                         <th style="width: 100px;text-justify: auto;text-align: center;">
-                            <label for="regDate">날짜</label></th>
+                            <label for="email">이메일주소</label></th>
                         <th style="width: 100px;text-justify: auto;text-align: center;">
-                            <label for="viewCount">조회수</label></th>
+                            <label for="regDate">가입일</label></th>
+                        <th style="width: 100px;text-justify: auto;text-align: center;">
+                            <label for="isDeleted">탈퇴현황</label></th>
                         </tr>
-                        ${tableRow}
-                    </table>
+                        ${userR}
+                    </table> 
                 <ul class="pagination justify-content-center">
                     ${pages}
                 </ul>
-                    </table>
 			</div>
 			<div class="col-1"></div>
 		</div>
