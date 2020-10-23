@@ -28,13 +28,13 @@ app.use('/user', uRouter);  //유저로 시작하는것은 uRouter로 보낸다.
 app.use('/bbs', bRouter);
 
 app.get('/', (req,res) => {
-    res.redirect('/bbs/list/1');
+    res.redirect('/bbs/list/1')
 });
 
-app.get('/login', (req,res) => {
+app.get('/login', (req,res) => {    
     fs.readFile('./view/index.html', 'utf8', (error, data) => {
-        res.send(data);
-    })
+        res.send(data)
+    });
 });
 
 app.post('/login', (req,res) => {
@@ -42,7 +42,7 @@ app.post('/login', (req,res) => {
     let pwd = req.body.pwd;
     let pwdHash = ut.generateHash(pwd);
     dm.getUserInfo(uid, result => {
-        if (result === undefined) {
+        if (result === undefined || result.isDeleted === 1) {
             let html = am.alertMsg(`Login 실패: ${uid}은/는 등록되지 않은 아이디입니다.`, '/login')
             console.log(`Login 실패: ${uid}이/가 존재하지 않습니다.`)
             res.send(html);
@@ -66,8 +66,8 @@ app.post('/login', (req,res) => {
 app.get('/logout', (req,res) => {
     req.session.destroy();
     res.redirect('/login');
-})
+});
 
 app.listen(3000, function () {
-    console.log('Server running at http://127.0.0.1:3000');
+    console.log('Server running at http://127.0.0.1:3000')
 });

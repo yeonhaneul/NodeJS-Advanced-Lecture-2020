@@ -6,6 +6,7 @@ module.exports.updateBbs = function (navBar, result) {
 		${navBar}
 	<div class="container" style="margin-top: 90px">
 		<form action="/bbs/update" method="post">
+			<input type="hidden" name="uid" value="${result.uid}">
 			<input type="hidden" name="bid" value="${result.bid}">
 			<input type="hidden" name="modTime" value="${result.modTime}">
 			<div class="row">

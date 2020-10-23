@@ -1,16 +1,16 @@
 const tm = require("./template");
 
-module.exports.deleteBbs = function (navBar, result) {
+module.exports.deleteUser = function (navBar, result) {
     return `
             ${tm.header()}
         ${navBar}
 		<div class="container" style="margin-top: 100px">
-		<form action="/bbs/delete" method="post">
-			<input type="hidden" id="bid" name="bid" value="${result.bid}">
+		<form action="/user/mypage/delete" method="post">
+			<input type="hidden" id="uid" name="uid" value="${result.uid}">
 			<div class="row">
-			<div class="col-1"></div>
+				<div class="col-1"></div>
 				<div class="col-6">
-					<h3> 글 삭제 </h3></div>
+					<h3> 회원 탈퇴 </h3></div>
 				<div class="1"></div>
 			</div>
 			<div class="col-12">
@@ -19,7 +19,7 @@ module.exports.deleteBbs = function (navBar, result) {
 			<div class="row">
 				<div class="col-1"></div>
 				<div class="col-10">
-					<h5 style="text-align: center;">정말 삭제하시겠습니까?</h5>
+					<h5 style="text-align: center;">정말 탈퇴하시겠습니까?</h5>
 				</div>
 				<div class="col-1"></div>
 			</div>
@@ -27,8 +27,8 @@ module.exports.deleteBbs = function (navBar, result) {
 				<div class="col-1"></div>
 				<div class="col-10">
 					<div style="text-align: center;margin-top: 10px;">
-						<button type="submit" class="btn btn-success" value="확인">확인</button>	
-						<button type="reset" class="btn btn-secondary" value="취소" onclick="location.href='/bbs/view/${result.bid}'">취소</button>
+						<button type="submit" class="btn btn-danger" value="확인">확인</button>	
+						<button type="reset" class="btn btn-secondary" value="취소" onclick="location.href='/user/mypage/${result.uid}'">취소</button>
 					</div>
 				</div>
 				<div class="col-1"></div>

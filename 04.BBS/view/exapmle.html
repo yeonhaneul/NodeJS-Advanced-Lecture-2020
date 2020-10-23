@@ -13,35 +13,39 @@
 
 <body>
 
-	<div class="container" style="margin-top: 100px">
-		<form action="/bbs/reply" method="post"></form>
-			<div class="row">
-				<div class="col-1"></div>
-				<div class="col-10">
-					<div class="card">
-						<div class="card-body" style="border: solid 0.3px; border-radius: 5px; margin-top: 10px;">
-							<h6 class="card-title">이름 regTime</h4>
-							<p class="card-text">리플내용</p>
-						</div>
-						<div class="card-body" style="border: solid 0.3px; border-radius: 5px; margin-top: 10px;">
-							<h6 class="card-title">이름 regTime</h4>
-							<p class="card-text">리플내용</p>
-						</div>
-						<div class="card-body" style="border: solid 0.3px; border-radius: 5px; margin-top: 10px;">
-							<h6 class="card-title">이름 regTime</h4>
-							<p class="card-text">리플내용</p>
-						</div>
-					</div>
-					<div class="input-group mt-3 mb-3">
-						<input type="text" class="form-control" placeholder="댓글을 입력해주세요.">
-						<div class="input-group-append">
-							<button class="btn btn-success" type="submit">확인</button>  
-						</div>
-					</div>
-				</div>
-				<div class="col-1"></div>
+	<div class="container" style="margin-top: 90px">
+        <div class="row">
+			<div class="col-1"></div>
+			<div class="col-10">
+				<table class="table table-borderless" style="">
+					<tr>
+						<td style="text-align: right;">아이디</td>
+						<td>${result.uid}</td>
+					</tr>
+					<tr>
+						<td style="text-align: right;">이름</td>
+						<td>${result.uname}</td>
+					</tr>
+					<tr>
+						<td style="text-align: right;">전화번호</td>
+						<td>${result.tel}</td>
+					</tr>
+					<tr>
+						<td style="text-align: right;">이메일</td>
+						<td>${result.email}</td>
+					</tr>
+					<tr>
+						<td style="text-align: right;">가입일</td>
+						<td>${result.regDate}</td>
+					</tr>
+					<tr>
+						<td style="text-align: right;">탈퇴현황</td>
+						<td>${result.isDeleted===0? ' ':'탈퇴'}</td>
+					</tr>
+				</table> 
 			</div>
-		</form>
+			<div class="col-1"></div>
+		</div>
 	</div>
 	
 </body>

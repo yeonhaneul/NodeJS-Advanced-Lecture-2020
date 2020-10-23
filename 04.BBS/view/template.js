@@ -32,17 +32,17 @@ module.exports = {
                 <a class="nav-link" href="/bbs/create"><i class="fas fa-pencil-alt"></i>글쓰기</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/user/list/1"><i class="far fa-user"></i></i></a>
+                <a class="nav-link" href="/user/list/1"><i class="far fa-user"></i>마이페이지</a>
             </li>
             <li class="navbar-text" id="welcome">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uname?uname:'게스트'}님 반갑습니다.
             </li>
         </ul>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="text" name="search">
-            <button class="btn btn-success" type="submit">검색</button>
+        <form class="form-inline" action="/bbs/search" method="post">
+            <input class="form-control mr-sm-2" type="search" aria-label="Search" name="keyword">
+            <button class="btn btn-success my-2 my-sm-0" type="submit" value="검색">검색</button>
         </form>
-        <a class="nav-link" href="/logout">로그아웃</a>
+        <a class="nav-link" href="/logout">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uname==='게스트'?'로그인':'로그아웃'}</a>
         </nav>
         `;
     },

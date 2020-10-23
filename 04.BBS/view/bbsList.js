@@ -7,11 +7,11 @@ module.exports.list = function (navBar, rows, pageNo, totalPage) {
         let today = new Date();
         let now  = ut.getNow(today);
         let modT = row.modTime;
-        console.log(modT);
         let eMod = (now.substring(0,10) === modT.substring(0,10) ? modT.substring(11):modT.substring(0,10));
+        let title = (row.replyCount === 0) ? row.title:`${row.title}<span class="text-danger"> [${row.replyCount}]</span>`;
         tableRow += `<tr>
                         <td style="text-align: center;">${row.bid}</td>
-                        <td><a href="/bbs/view/${row.bid}">${row.title}</a></td>
+                        <td><a href="/bbs/view/${row.bid}">${title}</a></td>
                         <td style="text-align: center;">${row.uname}</td>
                         <td style="text-align: center;">${eMod}</td>
                         <td style="text-align: center;">${row.viewCount}</td>

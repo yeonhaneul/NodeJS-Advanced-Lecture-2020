@@ -1,7 +1,7 @@
 const tm = require("./template");
 const ut = require('../util');
 
-module.exports.searchList = function (navBar, rows, pageNo, totalPage) {
+module.exports.searchList = function (navBar, rows) {
     let tableRow = '';
     for (let row of rows) {
         let today = new Date();
@@ -16,25 +16,6 @@ module.exports.searchList = function (navBar, rows, pageNo, totalPage) {
                         <td style="text-align: center;">${row.viewCount}</td>
                     </tr>`;
     };
-    // 페이지 지원
-    let pages = `<li class="page-item disabled">
-                    <a class="page-link active" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span></a>
-                </li>`;
-    for (let page=1; page <= totalPage; page++) {
-        if (page === pageNo)
-            pages += `<li class="page-item active" aria-current="page">
-                        <span class="page-link">
-                            ${page}<span class="sr-only">(current)</span>
-                        </span>
-                    </li>`;
-        else
-            pages += `<li class="page-item"><a class="page-link" href="/bbs/list/${page}">${page}</a></li>`;
-    }
-    pages += `<li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span></a>
-            </li>`;
     return `
             ${tm.header()}
         ${navBar}
@@ -61,7 +42,6 @@ module.exports.searchList = function (navBar, rows, pageNo, totalPage) {
                             ${tableRow}
                         </table>
                     <ul class="pagination justify-content-center">
-                        ${pages}
                     </ul>
                         </table>
                 </div>
