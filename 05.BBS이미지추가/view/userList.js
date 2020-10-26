@@ -6,6 +6,7 @@ module.exports.List = function (navBar, rows, pageNo, totalPage) {
         let isDeleted = parseInt(row.isDeleted);
         userR += `<tr style="text-align: center;">
                     <td><a href="/user/mypage/uid/${row.uid}">${row.uid}</a></td>
+                    <td><img src="${row.photo}" height="30px"></td>
                     <td><a href="/user/mypage/uid/${row.uid}">${row.uname}</a></td>
                     <td>${isDeleted===0 ? '-':'탈퇴'}</td>
                 </tr>`;
@@ -40,6 +41,8 @@ module.exports.List = function (navBar, rows, pageNo, totalPage) {
                         <tr>
                         <th style="text-justify: auto;text-align: center;">
                             <label for="uid">아이디</label></th>
+                        <th style="text-justify: auto;text-align: center;">
+                            <label for="photo">사진</label></th>
                         <th style="text-justify: auto;text-align: center;">
                             <label for="uname">이름</label></th>
                         <th style="text-justify: auto;text-align: center;">

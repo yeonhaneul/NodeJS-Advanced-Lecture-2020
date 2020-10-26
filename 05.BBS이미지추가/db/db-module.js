@@ -51,9 +51,9 @@ module.exports = {
         let conn = this.getConnection();
         let sql = `INSERT INTO users(uid, pwd, uname, tel, email, photo) VALUES(?,?,?,?,?,?);`;
         conn.query(sql, params, function(error, fields) {
-        if (error)
-            console.log(error);
-        callback();
+            if (error)
+                console.log(error);
+            callback();
         });
         conn.end();
     },

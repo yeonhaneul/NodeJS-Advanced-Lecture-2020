@@ -25,7 +25,6 @@ bRouter.get('/list/:page', (req,res) => {
 
 bRouter.post('/search', (req, res) => {
     let keyword = '%'+req.body.keyword+'%';
-    console.log(keyword);
     dm.searchList(keyword, rows => {
         let view = require('./view/bbsSearch');
         let navBar = tm.navBar(req.session.uname?req.session.uname:'게스트');
@@ -39,7 +38,6 @@ bRouter.get('/view/:bid', (req, res) => {
     dm.incrementViewCount(bid, () => {
         dm.getViewData(bid, result => {
             dm.getReplyData(bid, replies => {
-                console.log(replies)
                 let view = require('./view/bbsView');
                 let navBar = tm.navBar(req.session.uname?req.session.uname:'게스트');
                 let html = view.view(navBar, result, replies);
@@ -95,7 +93,7 @@ bRouter.get('/update/:bid/uid/:uid', (req, res) => {
     let bid = req.params.bid;
     let uid = req.params.uid;
     if (uid !== req.session.uid) {
-        let html = am.alertMsg(`작성한 회원만 수정이 가능합니다.`, '/');
+        let html = am.alertMsg(`작성한 회원만 수정이 가능합니다.`, `/bbs/view/${bid}`);
         res.send(html);
     } else {
         dm.getViewData(bid, result => {
@@ -126,7 +124,7 @@ bRouter.get('/delete/:bid/uid/:uid', (req, res) => {
     } else {
         dm.getViewData(bid, result => {
             let view = require('./view/bbsDelete');
-            let navBar = tm.navBar(req.session.uname?req.session.uname:'게스트');
+            let navBar = tm.navBar(req.session.uname);
             let html = view.deleteBbs(navBar, result);
             res.send(html);
         });
@@ -135,7 +133,6 @@ bRouter.get('/delete/:bid/uid/:uid', (req, res) => {
 
 bRouter.post('/delete', ut.isLoggedIn, (req, res) => {
     let bid = parseInt(req.body.bid);
-    console.log(bid);
     dm.bbsDelete(bid, () => {
         res.redirect('/');
     });

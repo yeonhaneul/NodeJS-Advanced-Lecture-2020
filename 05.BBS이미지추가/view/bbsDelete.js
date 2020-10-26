@@ -27,7 +27,7 @@ module.exports.deleteBbs = function (navBar, result) {
 				<div class="col-1"></div>
 				<div class="col-10">
 					<div style="text-align: center;margin-top: 10px;">
-						<button type="submit" class="btn btn-success" value="확인">확인</button>	
+						<button type="submit" class="btn btn-danger" value="확인">확인</button>	
 						<button type="reset" class="btn btn-secondary" value="취소" onclick="location.href='/bbs/view/${result.bid}'">취소</button>
 					</div>
 				</div>

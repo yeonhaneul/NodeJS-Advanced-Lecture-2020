@@ -24,7 +24,7 @@ uRouter.get('/register', (req, res) => {
     res.send(html);
 });
 
-uRouter.post('/register', (req, res) => {
+uRouter.post('/register', upload.single('photo'), (req, res) => {
     let uid = req.body.uid;
     let pwd = req.body.pwd;
     let pwd2 = req.body.pwd2;
@@ -35,7 +35,7 @@ uRouter.post('/register', (req, res) => {
     if (pwd === pwd2) {
         let pwdHash = ut.generateHash(pwd);
         let params = [uid, pwdHash, uname, tel, email, photo];
-        dm.insertReg(params, photo, uid, () => {
+        dm.insertReg(params, () => {
            res.redirect('/login');
         });
     } else {
@@ -49,7 +49,6 @@ uRouter.get('/list/:page', (req, res) => {
         if (req.params.page === 'null') { //없는사진처리
             res.status(200).send();
         } else {
-            console.log(req.session.uid);
             let page = parseInt(req.params.page);
             let offset = (page - 1) * 10;
             dm.userTotalCount(result => {
@@ -74,7 +73,6 @@ uRouter.get('/list/:page', (req, res) => {
 
 uRouter.get('/mypage/uid/:uid', ut.isLoggedIn, (req, res) => {
     let uid = req.params.uid;
-    console.log(req.session.uname);
     if (uid === req.session.uid || req.session.uid === 'admin') {
         dm.getUserInfo(uid, result => {
             let view = require('./view/userSosai');
@@ -92,7 +90,6 @@ uRouter.get('/mypage/delete/:uid', ut.isLoggedIn, (req,res) => {
     let uid = req.params.uid;
     if (uid === req.session.uid) {
         dm.getUserInfo(uid, result => {
-            console.log(uid, result)
             let view = require('./view/userDelete');
             let navBar = tm.navBar(req.session.uname?req.session.uname:'게스트');
             let html = view.deleteUser(navBar, result);
@@ -106,7 +103,6 @@ uRouter.get('/mypage/delete/:uid', ut.isLoggedIn, (req,res) => {
 
 uRouter.post('/mypage/delete', (req,res) => {
     let uid = req.body.uid;
-    console.log(uid);
     dm.userDelete(uid, () => {
         res.redirect('/login');
     });
@@ -114,7 +110,6 @@ uRouter.post('/mypage/delete', (req,res) => {
 
 uRouter.get('/mypage/update/:uid', ut.isLoggedIn, (req, res) => {
     let uid = req.params.uid;
-    console.log(uid);
     if (req.params.uid === req.session.uid) {
         dm.getUserInfo(uid, result => {
             let view = require('./view/userUpdate');
@@ -124,7 +119,7 @@ uRouter.get('/mypage/update/:uid', ut.isLoggedIn, (req, res) => {
         })
     } else {
         let html = am.alertMsg(`수정 권한이 없습니다.`, `/user/mypage/uid/${uid}`)
-        res.send(html);
+        res.send(html); 
     }
 })
 
@@ -136,8 +131,7 @@ uRouter.post('/mypage/update', ut.isLoggedIn, upload.single('photo'), (req,res) 
     let uname = req.body.uname;
     let tel = req.body.tel;
     let email = req.body.email;
-    let photo = req.file? `/upload/${req.file.filename}` : '/upload/blank.png';
-    console.log(uid)
+    let photo = req.file? `/upload/${req.file.filename}` : null;
     if (pwd === pwd2) {
         pwdHash = ut.generateHash(pwd);
         let params = [pwdHash, uname, tel, email];

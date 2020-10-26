@@ -5,8 +5,8 @@ module.exports.view = function (navBar, result, replies) {
     let cardR = '';
     for (let reply of replies) {
         cardR += (reply.isMine === 1) ?
-                    `<div class="card-body" style="border: solid 0.3px; border-radius: 5px; margin-bottom: 10px; margin-right:40%">`
-                    : `<div class="card-body" style="border: solid 0.3px; border-radius: 5px; margin-bottom: 10px; margin-left:50%">`
+                    `<div class="card-body" style="border: solid 0.3px; border-radius: 5px; margin-bottom: 10px; margin-left:50%">`
+                    : `<div class="card-body" style="border: solid 0.3px; border-radius: 5px; margin-bottom: 10px; margin-right:40%">`
             cardR += `<h6 class="card-title">${reply.uname} ${reply.regTime}</h6>
                       <p class="card-text">${reply.content}</p>
                     </div>`

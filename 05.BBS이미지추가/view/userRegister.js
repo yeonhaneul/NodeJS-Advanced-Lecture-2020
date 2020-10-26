@@ -40,11 +40,11 @@ module.exports.register = function () {
                     <td><input type="text" name="email" id="emial"></td>
                 </tr>
                 <tr>
-                    <td><label for="photo">사진</label></td>
+                    <td><label for="photo">프로필 사진</label></td>
                     <td colspan="2">
                         <div class="custom-file mb-3">
                             <input type="file" class="custom-file-input" id="photo" name="photo">
-                            <label class="custom-file-label" for="photo">업로드 사진 선택</label>
+                            <label class="custom-file-label" for="photo">사진 선택</label>
                         </div>
                     </td>
                 </tr>
@@ -60,6 +60,19 @@ module.exports.register = function () {
         <div class="col-3"></div>
     </div>
 </div>
-        ${template.footer()}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center fixed-bottom">
+        <span class="navbar-text">
+            Copyright &copy; 2020 Hoseo Institute of Big Data
+        </span>
+    </nav>
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+    </body>
+</html>
     `
 }

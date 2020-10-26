@@ -27,7 +27,7 @@ module.exports.userList = function (navBar, result) {
 					<tr>
 						<td colspan="1"style="text-align: right;"><strong>아이디</strong></td>
 						<td colspan="1"><label name="uid" id="uid">${result.uid}</label></td>
-						<td rowspan="2">
+						<td rowspan="5">
 							<img style="margin-left: 30px;" src="${result.photo}" width="150">
 						</td>
 					</tr>
