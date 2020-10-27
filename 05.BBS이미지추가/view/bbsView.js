@@ -5,8 +5,8 @@ module.exports.view = function (navBar, result, replies) {
     let cardR = '';
     for (let reply of replies) {
         cardR += (reply.isMine === 1) ?
-                    `<div class="card-body" style="border: solid 0.3px; border-radius: 5px; margin-bottom: 10px; margin-left:50%">`
-                    : `<div class="card-body" style="border: solid 0.3px; border-radius: 5px; margin-bottom: 10px; margin-right:40%">`
+                    `<div class="card-body bg-secondary text-white" style="border-radius: 5px; margin-bottom: 10px; margin-left:50%">`
+                    : `<div class="card-body bg-light text-dark" style="border: solid 0.3px; border-radius: 5px; margin-bottom: 10px; margin-right:40%">`
             cardR += `<h6 class="card-title">${reply.uname} ${reply.regTime}</h6>
                       <p class="card-text">${reply.content}</p>
                     </div>`
@@ -57,9 +57,7 @@ module.exports.view = function (navBar, result, replies) {
             <form action="/bbs/reply" method="post">
                 <input type="hidden" name="bid" value="${result.bid}">
                 <input type="hidden" name="uid" value="${result.uid}">
-                <div class="card">
                 ${cardR}
-                </div>
                 <div class="input-group mt-3 mb-3">
                     <input type="text" class="form-control" name="content">
                     <div class="input-group-append">
