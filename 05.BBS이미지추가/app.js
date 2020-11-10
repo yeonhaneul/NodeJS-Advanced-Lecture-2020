@@ -69,5 +69,5 @@ app.get('/logout', (req,res) => {
 });
 
 app.listen(3000, function () {
-    console.log('Server running at http://127.0.0.1:3000')
+    console.log('Server running at http://200.1.220.254:3000')
 });

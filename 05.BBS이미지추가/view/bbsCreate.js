@@ -1,6 +1,5 @@
 const template = require("./template");
 
-
 module.exports.createBbs = function (navBar) {
     return `
 			${template.header()}
@@ -17,7 +16,7 @@ module.exports.createBbs = function (navBar) {
 		<div class="col-10">
 				<label for="title">제목:</label>
 				<input type="text" name="title" class="form-control" style="margin-bottom: 10px;"
-					placeholder="제목을 입력해주세요." required>
+					placeholder="제목을 입력해주세요.">
 				<div class="form-group">
 					<label for="content">내용:</label>
 					<textarea class="form-control" rows="10" name="content"
@@ -32,6 +31,7 @@ module.exports.createBbs = function (navBar) {
 				</div>
 	</form>
 </div>
-        ${template.footer()}
+	<script type="text/javascript" src="./ckeditor/ckeditor.js"></script>
+		        ${template.footer()}
     `
 }

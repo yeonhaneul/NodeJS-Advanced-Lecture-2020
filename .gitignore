@@ -3,6 +3,8 @@ tmp/
 mysql.json
 sessions/
 fontawesome-free-5.15.1-web/
+ckeditor/
+00.연습/
 
 # Logs
 logs
